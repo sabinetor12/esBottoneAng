@@ -2,3 +2,4 @@
 stato: <input type="checkbox" checked="statoBottone" (change)="cambiaStato()" > {{statoBottone}}
 
 <app-bottone [stato]="statoBottone" ></app-bottone>
+<table-basic-example [hidden]="!statoBottone"></table-basic-example>
