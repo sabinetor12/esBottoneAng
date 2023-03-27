@@ -1,4 +1,9 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<button > 0 </button>
+<button >-1</button>
+<button (click)="piu1()">+1</button>
+<button >fondo</button>
+<table mat-table [dataSource]="dati._embedded.employees" class="mat-elevation-z8" *ngIf="dati">
+  <!-- *NgIf="dati" significa che lo fa solo quando esiste-->
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
