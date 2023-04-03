@@ -30,6 +30,7 @@
   
   interface Links2 {
     first: Self;
+    prev:Self;
     self: Self2;
     next: Self;
     last: Self;

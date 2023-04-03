@@ -1,7 +1,7 @@
-<button > 0 </button>
-<button >-1</button>
-<button (click)="piu1()">+1</button>
-<button >fondo</button>
+<button (click)="firstPage()"[disabled]="!dati?._links?.prev"> 1 </button>
+<button (click)="prevPage()" [disabled]="!dati?._links?.prev">-1</button>
+<button (click)="nextPage()" [disabled]="!dati?._links?.next">+1</button>
+<button (click)="lastPage()" [disabled]="!dati?._links?.next">fondo</button>
 <table mat-table [dataSource]="dati._embedded.employees" class="mat-elevation-z8" *ngIf="dati">
   <!-- *NgIf="dati" significa che lo fa solo quando esiste-->
 
@@ -58,4 +58,11 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
-  
+  <form #userlogin="ngForm" (ngSubmit)="onSubmit(userlogin.value)">
+  nascità<input type="text" name="nascita" ngModel>
+  nome<input type="text" name="nome" ngModel>
+  sesso<input type="text" name="sesso" ngModel>
+  data<input type="text" name="data" ngModel>
+  cognome<input type="text" name="cognome" ngModel>
+  <button type="submit">submit</button>
+</form>
