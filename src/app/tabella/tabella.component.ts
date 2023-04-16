@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { Employee, RootObject,Page,Links,Embedded} from 'src/Employee';
+import { Employee, RootObject,Page,Links,Embedded} from 'Employee';
 import { DataRestService } from '../services/data-rest.service';
 import { FormBuilder } from '@angular/forms';
 
@@ -27,7 +27,7 @@ export class TabellaComponent {
 
   }
 
-  displayedColumns: string[] = ['id', 'birthDate', 'firstName', 'lastName','gender','hireDate','action'];
+  displayedColumns: string[] = ['id', 'birthDate', 'firstName', 'lastName','gender','hireDate','delete'];
   
   insertForm = this.formBuilder.group({
     nascita: '',
@@ -37,16 +37,31 @@ export class TabellaComponent {
     cognome: ''
   });
   esito: any | undefined;
+
   onSubmit(input:any) {
+    console.log(input.id);
+    if(input.id==""){
     let json = JSON.parse(JSON.stringify('{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": 0,"lastName": "'+input.cognome+'"}'));
     console.log(json);
     this.data.postDataRows("http://localhost:8080/employees",json).subscribe(esito => {
       this.esito = esito;
-    })
- }
+      this.loadData("http://localhost:8080/employees")
+    })} else{
+      let json = JSON.parse(JSON.stringify('{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": '+input.id+',"lastName": "'+input.cognome+'"}'));
+      this.data.putDataRows("http://localhost:8080/employees/"+input.id,json).subscribe(esito => {
+        this.esito = esito;
+        this.loadData("http://localhost:8080/employees")
+      })
+    }
+  }
 
   deleteRow(i:number){
-    console.log(i);
+    console.log("http://localhost:8080/employees/"+i.toString());
+    this.data.deleteDataRows("http://localhost:8080/employees/"+i.toString()).subscribe(esito => {
+      this.esito = esito;
+      this.loadData("http://localhost:8080/employees")
+    })
+    
   }
   stampa(){
     console.log(this.dati);

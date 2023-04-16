@@ -1,19 +1,3 @@
-/*export interface Employee{
-    employee:{
-        birthDate:string,
-        firstName:string,
-        gender:string,
-        hireDate:string,
-        id:number,
-        lastName:string
-    },
-    page:{
-        size: number,
-        totalElements: number,
-        totalPages: number,
-        number:number
-    }*/
-    
 
     export interface RootObject {
     _embedded: Embedded;
