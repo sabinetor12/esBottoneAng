@@ -59,10 +59,11 @@ export class TabellaComponent {
   }
 
   deleteRow(i:number){
+    let nPag = this.dati?.page.number;
     console.log("http://localhost:8080/employees/"+i.toString());
     this.data.deleteDataRows("http://localhost:8080/employees/"+i.toString()).subscribe(esito => {
       this.esito = esito;
-      this.loadData("http://localhost:8080/employees")
+      this.loadData("http://localhost:8080/employees?page="+nPag+"&size=20")
     })
     
   }
