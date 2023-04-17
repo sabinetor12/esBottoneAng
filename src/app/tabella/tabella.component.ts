@@ -47,7 +47,7 @@ export class TabellaComponent {
     console.log(json);
     this.data.postDataRows("http://localhost:8080/employees",json).subscribe(esito => {
       this.esito = esito;
-      this.loadData("http://localhost:8080/employees",nPag)
+      this.loadData("http://localhost:8080/employees"+nPag+"&size=20")
     })} else{ //modifica
       let json = '{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": '+input.id+',"lastName": "'+input.cognome+'"}';
       this.data.putDataRows("http://localhost:8080/employees/"+input.id,json).subscribe(esito => {
