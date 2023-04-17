@@ -5,9 +5,6 @@
 <button (click)="lastPage()" [disabled]="!dati?._links?.next">fondo</button>
 <table mat-table [dataSource]="dati._embedded.employees" class="mat-elevation-z8" *ngIf="dati">
   <!-- *NgIf="dati" significa che lo fa solo quando esiste-->
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
   
     <!-- id Column -->
     <ng-container matColumnDef="id">

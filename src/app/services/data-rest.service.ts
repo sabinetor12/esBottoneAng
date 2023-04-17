@@ -18,6 +18,7 @@ export class DataRestService {
       .set('size', pageSize || 20)
     return this.http.get<RootObject>(apiUrl);
   }
+  
   deleteDataRows(apiUrl: string): Observable<RootObject> {
     return this.http.delete<RootObject>(apiUrl);
   }

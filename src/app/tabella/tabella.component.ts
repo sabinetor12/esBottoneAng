@@ -19,8 +19,8 @@ export class TabellaComponent {
     this.loadData("http://localhost:8080/employees");
   }
 
-  loadData(url:string) {
-    this.data.getDataRows(url).subscribe(dati => {
+  loadData(url:string,pageNumber?:number) {
+    this.data.getDataRows(url,undefined,pageNumber).subscribe(dati => {
       this.dati = dati;
       this.links = dati._links;
     });
@@ -38,21 +38,24 @@ export class TabellaComponent {
   });
   esito: any | undefined;
 
-  onSubmit(input:any) {
-    console.log(input.id);
-    if(input.id==""){
-    let json = JSON.parse(JSON.stringify('{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": 0,"lastName": "'+input.cognome+'"}'));
+  onSubmit(input:any,page?:number) {
+
+    let nPag = this.dati?.page.number;
+    console.log(nPag,"/n",this.links.prev.href)
+    if(input.id==""){ //inserimento
+    let json = '{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": 0,"lastName": "'+input.cognome+'"}';
     console.log(json);
     this.data.postDataRows("http://localhost:8080/employees",json).subscribe(esito => {
       this.esito = esito;
-      this.loadData("http://localhost:8080/employees")
-    })} else{
-      let json = JSON.parse(JSON.stringify('{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": '+input.id+',"lastName": "'+input.cognome+'"}'));
+      this.loadData("http://localhost:8080/employees",nPag)
+    })} else{ //modifica
+      let json = '{"birthDate":"'+input.nascita+'","firstName": "'+input.nome+'","gender": "'+input.sesso+'","hireDate": "'+input.data+'","id": '+input.id+',"lastName": "'+input.cognome+'"}';
       this.data.putDataRows("http://localhost:8080/employees/"+input.id,json).subscribe(esito => {
         this.esito = esito;
-        this.loadData("http://localhost:8080/employees")
+        this.loadData("http://localhost:8080/employees?page="+nPag+"&size=20")
       })
     }
+    
   }
 
   deleteRow(i:number){
